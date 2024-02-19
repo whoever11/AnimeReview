@@ -88,7 +88,7 @@ const getAnimeByCriteria = async (req, res) => {
 
   const updateAnime = async (req, res) => {
     try {
-      const Anime = await Anime.findByIdAndUpdate(req.params.id, { /* update fields */ })
+      const Anime = await Anime.findByIdAndUpdate(req.params.id, {  })
       if (Anime) {
         return res.status(200).json({ Anime })
       } else {
