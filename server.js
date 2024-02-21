@@ -22,15 +22,17 @@ app.listen(PORT, () => console.log(`Listening on port: ${PORT}`))
 
 
 app.get('/', (req, res) => res.send('This is our landing page!'))
-app.get('/animes', animeController.getAnimes)
+app.get('/api/animes', animeController.getAnimes)
 app.get('/animes/:id', animeController.getAnimeById)
 app.get('/animes/:id/:name', animeController.getAnimeByName)
 app.get('/animes/:criteria', animeController.getAnimeByCriteria)
+app.get(`/api/animes/:animeId/reviews`, animeController.getAnimeReviews)
 app.post('/animes', animeController.createAnime)
 app.put('/animes/:id', animeController.updateAnime)
 app.delete('/animes/:id', animeController.deleteAnime)
 //reviews
 app.get('/reviews', reviewController.getReviews)
+app.get('/reviews/:animeId', reviewController.getReviewsByAnimeId)
 app.get('/reviews/:id', reviewController.getReviewById)
 app.get('/reviews/:title', reviewController.getReviewByTitle)
 app.get('/reviews/:criteria', reviewController.getReviewByCriteria)

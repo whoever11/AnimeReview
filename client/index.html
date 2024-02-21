@@ -1,58 +1,47 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>AnimeReview</title>
-        <link rel="stylesheet" href="style.css">
-    </head>
-    <body> 
-        <header>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AnimeReview</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+</head>
+<body>
+    <header>
         <h1>AnimeReview</h1>
-        <nav>
-            <ul>
-                <li><button id ="anime-btn">Anime</button></li>
-                <li><button id ="review-btn">Reviews</button></li>
-            </ul>
-        </nav>
+       
     </header>
+
     <main>
-        <section id="anime-page">
-            <h2 id="anime-title"></h2>
-            <img id="anime-image" alt="Anime-image" class="anime-image">
-            <p id="anime-description"></p>
-            <button id="prev-btn" disabled>Previous</button>
-            <button id="next-btn">Next</button>
+        <section id="anime-container">
+            <!-- Anime information will be loaded here -->
         </section>
-        <section id="review-page">
-            <h2 id="review-title"></h2>
-            <div id="review-list"></div>
-            <form id = "review-form">
-                <input type="text" id="name" name="name">
-            <br>
-                <label for="score">Score</label>
-                <select id="score" name="score">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                </select>
-            <br>
-            <label for="review">Review</label>
-            <textarea id="review" name="review" rows="4" cols="'50"></textarea>
-            <br>
-            <input type = "submit" value="Submit">
-            </form>
+
+        <section id="reviews-container">
+            <!-- Reviews will be loaded here -->
         </section>
+
+        <form id="review-form">
+            <input type="text" id="review-title" placeholder="Review Title" required>
+            <textarea id="review-text" placeholder="Your review" required></textarea>
+            <input type="number" id="review-score" placeholder="Rating" min="1" max="10" required>
+            <button type="submit">Submit Review</button>
+        </form>
+
+        <button id="next-anime">Next Anime</button>
     </main>
-    <script defer src="script.js"></script>
-     </body>
-     </html>
+
+    <footer>
+      
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+
     
     
     

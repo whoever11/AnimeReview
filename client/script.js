@@ -1,16 +1,133 @@
-const animePage = document.getElementById('anime-page')
-const reviewPage = document.getElementById('review-page')
-const animeBtn = document.getElementById('anime-btn')
-const reviewBtn = document.getElementById('review-btn')
+//current anime and the list of animes
+let currentAnimeIndex = 0
+let animeList = []
 
-animeBtn.addEventListener('click', () => {
-    animePage.style.display = 'block'
-    reviewPage.style.display = 'none'
-    }
-)
+// Function to fetch and display all anime from the API
+async function fetchAndDisplayAnime() {
+    try {
+        const response = await axios.get('http://localhost:3001/api/animes')
+        animeList = response.data.animes // Store the fetched animes
 
-reviewBtn.addEventListener('click', () => {
-    animePage.style.display = 'none'
-    reviewPage.style.display = 'block'
+        if (animeList.length > 0) {
+            displayAnime(animeList[currentAnimeIndex]) // first anime
+        }
+    } catch (error) {
+        console.error('Error fetching anime data:', error)
+        document.getElementById('anime-container').textContent = 'Failed to load anime data.'
     }
-)
+}
+
+// Function to display details of an anime
+function displayAnime(anime) {
+    const container = document.getElementById('anime-container')
+    container.innerHTML = '' // Clear previous content
+
+    const animeElement = document.createElement('div')
+    animeElement.className = 'anime'
+
+    const nameElement = document.createElement('h2')
+    nameElement.textContent = anime.name
+    animeElement.appendChild(nameElement)
+
+    const imageElement = document.createElement('img')
+    imageElement.src = anime.image;
+    imageElement.alt = `Cover image of ${anime.name}`
+    imageElement.style.width = '200px'
+    animeElement.appendChild(imageElement)
+
+    const descriptionElement = document.createElement('p')
+    descriptionElement.textContent = anime.description
+    animeElement.appendChild(descriptionElement)
+
+    const detailsElement = document.createElement('p')
+    detailsElement.textContent = `Genres: ${anime.genres}, Episodes: ${anime.episodes}, Characters: ${anime.characters}, Rating: ${anime.rating}`
+    animeElement.appendChild(detailsElement)
+
+    container.appendChild(animeElement)
+
+    // Fetch and display reviews for the current anime
+    fetchAndDisplayReviews(anime._id)
+}
+
+// Function to fetch and display reviews for a specific anime
+async function fetchAndDisplayReviews(animeId) {
+    try {
+        const response = await axios.get(`http://localhost:3001/reviews/${animeId}`)
+        const reviews = response.data.reviews
+
+        const reviewsContainer = document.getElementById('reviews-container')
+        reviewsContainer.innerHTML = '' // Clear
+
+        reviews.forEach(review => {
+            const reviewElement = document.createElement('div')
+            reviewElement.className = 'review'
+
+            const titleElement = document.createElement('h3')
+            titleElement.textContent = review.title
+            reviewElement.appendChild(titleElement)
+
+            const textElement = document.createElement('p')
+            textElement.textContent = review.reviewText
+            reviewElement.appendChild(textElement)
+
+            const scoreElement = document.createElement('span')
+            scoreElement.textContent = `Rating: ${review.score}`
+            reviewElement.appendChild(scoreElement)
+
+            const dateElement = document.createElement('span')
+            dateElement.textContent = new Date(review.date).toLocaleDateString()
+            reviewElement.appendChild(dateElement)
+
+            reviewsContainer.appendChild(reviewElement)
+        });
+    } catch (error) {
+        console.error('Error fetching reviews:', error)
+        document.getElementById('reviews-container').textContent = 'Failed to load reviews.'
+    }
+}
+
+// Function to submit a new review
+async function submitReview(event) {
+    event.preventDefault()
+
+    const animeId = animeList[currentAnimeIndex]._id;
+    const reviewTitle = document.getElementById('review-title').value
+    const reviewText = document.getElementById('review-text').value
+    const reviewScore = document.getElementById('review-score').value
+
+    try {
+        await axios.post('http://localhost:3001/reviews', {
+            animeId,
+            title: reviewTitle,
+            reviewText,
+            score: reviewScore,
+        });
+
+        // Clear form
+        document.getElementById('review-title').value = ''
+        document.getElementById('review-text').value = ''
+        document.getElementById('review-score').value = ''
+
+        // Refresh reviews to include the new one
+        fetchAndDisplayReviews(animeId)
+    } catch (error) {
+        console.error('Error submitting review:', error)
+    }
+}
+
+// Function to show the next anime and its reviews
+function showNextAnime() {
+    if (currentAnimeIndex < animeList.length - 1) {
+        currentAnimeIndex++;
+        displayAnime(animeList[currentAnimeIndex])
+    } else {
+        alert("You've reached the end of the anime list.")
+    }
+}
+
+// Add event listeners to the DOM
+document.addEventListener('DOMContentLoaded', fetchAndDisplayAnime)
+document.getElementById('review-form').addEventListener('submit', submitReview)
+document.getElementById('next-anime').addEventListener('click', showNextAnime)
+
+

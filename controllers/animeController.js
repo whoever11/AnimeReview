@@ -35,45 +35,54 @@ const getAnimeByName = async (req, res) => {
         return res.status(500).send(error.message)
     }
 }
-
 const getAnimeByCriteria = async (req, res) => {
-     try {
-      const query = {}
+  try {
+    const query = {}
 
-      if (req.query.name) {
-        query.name = req.query.name
-      }
-      if (req.query.description) {
-        query.description = req.query.description
-      }
-      if (req.query.genres) {
-        query.genres = req.query.genres
-      }
-      if (req.query.episodes) {
-        query.episodes = req.query.episodes
-      }
-      if (req.query.characters) {
-        query.characters = req.query.characters
-      }
-      if (req.query.aired) {
-        query.aired = req.query.aired
-      }
-      if (req.query.image) {
-        query.image = req.query.image
-      }
-      if (req.query.rating) {
-        query.rating = req.query.rating
-      }
-      const anime = await Anime.find(query)
-      if (anime.length) {
-        res.json(anime)
-      }
-      else {
-        res.status(404).send('No animes match the specified criteria')
-      }
-     } catch (error) {
-      return res.status(500).send(error.message)
-      }
+    if (req.query.name) {
+      query.name = req.query.name
+    }
+    if (req.query.description) {
+      query.description = req.query.description
+    }
+    if (req.query.genres) {
+      query.genres = req.query.genres
+    }
+    if (req.query.episodes) {
+      query.episodes = req.query.episodes
+    }
+    if (req.query.characters) {
+      query.characters = req.query.characters
+    }
+    if (req.query.aired) {
+      query.aired = req.query.aired
+    }
+    if (req.query.image) {
+      query.image = req.query.image
+    }
+    if (req.query.rating) {
+      query.rating = req.query.rating
+    }
+    const animes = await Anime.find(query)
+    if (animes.length) {
+      res.json(animes)
+    } else {
+      res.status(404).send('No animes match the specified criteria')
+    }
+  } catch (error) {
+    return res.status(500).send(error.message)
+  }
+}
+const getAnimeReviews = async (req, res) => {
+  const animeId = req.params.animeId
+  try {
+    const anime = await Anime.findById(animeId)
+    const reviews = anime.reviews
+    res.json(reviews)
+  }
+  catch (error) {
+    return res.status(500).send(error.message)
+  }
 }
 
   const createAnime = async (req, res) => {
@@ -115,6 +124,7 @@ module.exports = {
     getAnimeById,
     getAnimeByName,
     getAnimeByCriteria,
+    getAnimeReviews,
     createAnime,
     updateAnime,
     deleteAnime
