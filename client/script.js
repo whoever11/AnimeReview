@@ -6,7 +6,7 @@ let animeList = []
 async function fetchAndDisplayAnime() {
     try {
         const response = await axios.get('http://localhost:3001/api/animes')
-        animeList = response.data.animes // Store the fetched animes
+        animeList = response.data.animes 
 
         if (animeList.length > 0) {
             displayAnime(animeList[currentAnimeIndex]) // first anime
@@ -20,7 +20,7 @@ async function fetchAndDisplayAnime() {
 // Function to display details of an anime
 function displayAnime(anime) {
     const container = document.getElementById('anime-container')
-    container.innerHTML = '' // Clear previous content
+    container.innerHTML = '' 
 
     const animeElement = document.createElement('div')
     animeElement.className = 'anime'
@@ -40,7 +40,21 @@ function displayAnime(anime) {
     animeElement.appendChild(descriptionElement)
 
     const detailsElement = document.createElement('p')
-    detailsElement.textContent = `Genres: ${anime.genres}, Episodes: ${anime.episodes}, Characters: ${anime.characters}, Rating: ${anime.rating}`
+    const genresElement = document.createElement('p')
+    genresElement.textContent = `Genres: ${anime.genres}`
+    animeElement.appendChild(genresElement)
+
+    const episodesElement = document.createElement('p')
+    episodesElement.textContent = `Episodes: ${anime.episodes}`
+    animeElement.appendChild(episodesElement)
+
+    const charactersElement = document.createElement('p')
+    charactersElement.textContent = `Characters: ${anime.characters}`
+    animeElement.appendChild(charactersElement)
+
+    const ratingElement = document.createElement('p')
+    ratingElement.textContent = `Rating: ${anime.rating}`
+    animeElement.appendChild(ratingElement)
     animeElement.appendChild(detailsElement)
 
     container.appendChild(animeElement)
@@ -56,7 +70,7 @@ async function fetchAndDisplayReviews(animeId) {
         const reviews = response.data.reviews
 
         const reviewsContainer = document.getElementById('reviews-container')
-        reviewsContainer.innerHTML = '' // Clear
+        reviewsContainer.innerHTML = '' 
 
         reviews.forEach(review => {
             const reviewElement = document.createElement('div')
@@ -90,7 +104,7 @@ async function fetchAndDisplayReviews(animeId) {
 async function submitReview(event) {
     event.preventDefault()
 
-    const animeId = animeList[currentAnimeIndex]._id;
+    const animeId = animeList[currentAnimeIndex]._id
     const reviewTitle = document.getElementById('review-title').value
     const reviewText = document.getElementById('review-text').value
     const reviewScore = document.getElementById('review-score').value
@@ -118,7 +132,7 @@ async function submitReview(event) {
 // Function to show the next anime and its reviews
 function showNextAnime() {
     if (currentAnimeIndex < animeList.length - 1) {
-        currentAnimeIndex++;
+        currentAnimeIndex++
         displayAnime(animeList[currentAnimeIndex])
     } else {
         alert("You've reached the end of the anime list.")
