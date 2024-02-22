@@ -88,7 +88,7 @@ async function fetchAndDisplayReviews(animeId) {
             scoreElement.textContent = `Rating: ${review.score}`
             reviewElement.appendChild(scoreElement)
 
-            const dateElement = document.createElement('span')
+            const dateElement = document.createElement('p')
             dateElement.textContent = new Date(review.date).toLocaleDateString()
             reviewElement.appendChild(dateElement)
 
