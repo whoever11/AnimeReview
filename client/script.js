@@ -32,8 +32,8 @@ function displayAnime(anime) {
     const imageElement = document.createElement('img')
     imageElement.src = anime.image
     imageElement.alt = `Cover image of ${anime.name}`
-    imageElement.style.width = '300px'
-    imageElement.style.height = '300px'
+    imageElement.style.width = '350px'
+    imageElement.style.height = '350px'
     animeElement.appendChild(imageElement)
 
     const descriptionElement = document.createElement('p')
