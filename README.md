@@ -16,3 +16,12 @@ This project is a web application for anime enthusiasts to browse anime titles, 
 - **Backend API**: ( - e.g., Node.js, Express for REST API)
 - **Database**: (my own database - e.g., MongoDB)
 - **Other libraries**: Axios for HTTP requests
+
+#Step 1
+ making the database through MongoDb focusing on anime, characters and reviews.
+
+ #Step 2
+ Putting the database through javascript so the information shows on the front end
+
+ #Step 3 
+ Style the design to fit what i would like for the project to look like.
