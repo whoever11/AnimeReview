@@ -25,3 +25,11 @@ This project is a web application for anime enthusiasts to browse anime titles, 
 
  #Step 3 
  Style the design to fit what i would like for the project to look like.
+
+ ##Issues
+ -I should have spent alot more time on the front end building it out first before working on the javascript, even just typing the information in the html for it to so one the screen first.
+- My focus on the backend of the project was too much to where when things would break on the front end, my process should have slowed down.
+##Wins
+-I understand through all the console errors, issues with the project the backend really good for pulling the api data
+-Understanding my weakness and flaws with front end planning and for future projects doing a dummy website first, making sure everything looks visually how i would like it even after i build out the design in figma to make sure i can meet the front end requirements. 
+ 
