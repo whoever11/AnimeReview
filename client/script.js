@@ -1,4 +1,4 @@
-//current anime and the list of animes
+
 let currentAnimeIndex = 0
 let animeList = []
 
@@ -24,15 +24,16 @@ function displayAnime(anime) {
 
     const animeElement = document.createElement('div')
     animeElement.className = 'anime'
-
+    
     const nameElement = document.createElement('h2')
     nameElement.textContent = anime.name
     animeElement.appendChild(nameElement)
 
     const imageElement = document.createElement('img')
-    imageElement.src = anime.image;
+    imageElement.src = anime.image
     imageElement.alt = `Cover image of ${anime.name}`
-    imageElement.style.width = '200px'
+    imageElement.style.width = '300px'
+    imageElement.style.height = '300px'
     animeElement.appendChild(imageElement)
 
     const descriptionElement = document.createElement('p')
@@ -139,7 +140,7 @@ function showNextAnime() {
     }
 }
 
-// Add event listeners to the DOM
+
 document.addEventListener('DOMContentLoaded', fetchAndDisplayAnime)
 document.getElementById('review-form').addEventListener('submit', submitReview)
 document.getElementById('next-anime').addEventListener('click', showNextAnime)
